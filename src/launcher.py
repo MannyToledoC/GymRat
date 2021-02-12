@@ -1,5 +1,4 @@
 import rumps
-from rumps.rumps import MenuItem
 import runner
 
 def notfiy(message):
