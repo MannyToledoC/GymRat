@@ -1,38 +1,47 @@
 import rumps
+from rumps.rumps import MenuItem
 import runner
 
-class GymRat(object):
-  def __init__(self):
-    self.app = rumps.App("GymRat", "🐀")
-    self.timer = rumps.Timer(self.web_info, 60)
-    self.start_script = rumps.MenuItem(title="Start", callback=self.start_timer)
-    self.stop_script = rumps.MenuItem(title="Stop", callback=self.stop_timer)
-    self.app.menu = [self.start_script, self.stop_script]
-    
-    # self.start_script = rumps.MenuItem(title="Start", callback=self.web_info)
-    # self.app.menu = [self.start_script]
+def notfiy(message):
+  title = '🐀 GymRat 🐀'
+  subtitle  = 'Gym Notification For 4:00 PM'
+  rumps.notification(title, subtitle, message)
 
-  def run(self):
-    self.app.run()
 
-  def web_info(self, sender):
-    if runner.cheese() == False:
-      print("False")
-    else:
-      # rumps.notification(title="GymRat", subtitle="Sample", message='HEllo hows itgoing')
-      print("Should be 2 seconds")
-      self.timer.interval = 2
 
-    
-    # rumps.notification(title="GymRat", subtitle="Sample", message='HEllo hows itgoing')
-    
-  def start_timer(self, sender):
-    self.timer.start()
-    print("Search has started")
-  def stop_timer(self, sender):
-    self.timer.stop()
-    print("Search has been stopped")
+def web_info(_):
+  print('--------------------------------------')
+  if runner.cheese() == False:
+    print("False")
+  else:
+    notfiy('Spot Available!')
+    timer.interval = 3600
+
+
+
+def start_timer(_):
+  stop.set_callback(stop_timer)
+  start.set_callback(None)
+  timer.start()
+  print("Search has started")
+
+
+
+def stop_timer(_):
+  timer.stop()
+  stop.set_callback(None)
+  start.set_callback(start_timer)
+  print("Search has been stopped")
+
+@rumps.clicked("Debugger")
+def check(_):
+    print(rumps.timers())
 
 if __name__ == '__main__':
-  app = GymRat()
-  app.run()
+  timer = rumps.Timer(web_info, 60)  
+  GymRat = rumps.App('GymRat', '🐀')
+
+  start = rumps.MenuItem(title='Start', callback=start_timer)
+  stop = rumps.MenuItem(title='Stop', callback=None)
+  GymRat.menu = [start, stop]
+  GymRat.run()

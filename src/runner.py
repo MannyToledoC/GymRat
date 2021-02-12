@@ -22,10 +22,12 @@ def crawl():
 
 
 def cheese():
-  if crawl().text != 'No Spots Available':
+  result = crawl().text
+  if  result != 'No Spots Available':
     print('Spots Available')
-    print (crawl().text)
+    print (result)
+    print('')
     return True
   else:
-    print('No Spots Available')
+    print('No Spots Available\n')
     return False
