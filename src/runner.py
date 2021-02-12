@@ -22,14 +22,10 @@ def crawl():
 
 
 def cheese():
-  while(True):
-    if crawl().text != 'No Spots Available':
-      print('Spots Available')
-      print (crawl().text)
-      os.system(command)
-      time.sleep(3600)
-    else:
-      print('No Spots Available')
-      time.sleep(2)
-
-cheese()
+  if crawl().text != 'No Spots Available':
+    print('Spots Available')
+    print (crawl().text)
+    return True
+  else:
+    print('No Spots Available')
+    return False
