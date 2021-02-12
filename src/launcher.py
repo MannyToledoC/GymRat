@@ -1,19 +1,20 @@
 import rumps
 import runner
 
-def notfiy(message):
-  title = '🐀 GymRat 🐀'
-  subtitle  = 'Gym Notification For 4:00 PM'
-  rumps.notification(title, subtitle, message)
+def notify(message):
+  title = 'GymRat'
+  subtitle  = message
+  rumps.notification(title, subtitle, '')
 
 
 
 def web_info(_):
   print('--------------------------------------')
-  if runner.cheese() == False:
+  result = runner.cheese()
+  if result[0] == False:
     print("False")
   else:
-    notfiy('Spot Available!')
+    notify(result[1] + ' 🧀')
     timer.interval = 3600
 
 
@@ -22,7 +23,8 @@ def start_timer(_):
   stop.set_callback(stop_timer)
   start.set_callback(None)
   timer.start()
-  print("Search has started")
+  print("Search has been started...")
+  notify('Search has been started... 🧀')
 
 
 
@@ -30,7 +32,9 @@ def stop_timer(_):
   timer.stop()
   stop.set_callback(None)
   start.set_callback(start_timer)
-  print("Search has been stopped")
+  print("Search has been stopped...")
+  notify('Search has been stopped... 🧀')
+
 
 @rumps.clicked("Debugger")
 def check(_):
